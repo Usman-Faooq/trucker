@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/mainLayout"
+    android:elevation="@dimen/_3sdp"
+    android:layout_marginVertical="@dimen/_5sdp"
+    android:layout_marginRight="@dimen/_5sdp"
+    android:layout_marginLeft="@dimen/_3sdp"
+    android:paddingVertical="@dimen/_12sdp"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:background="@drawable/rounded_edittext"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/dayTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MON"
+        android:textColor="@color/gray_color"
+        android:fontFamily="@font/rubik_regular"
+        android:textSize="@dimen/_9sdp"/>
+
+    <TextView
+        android:id="@+id/dateTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/rubik_medium"/>
+
+</LinearLayout>

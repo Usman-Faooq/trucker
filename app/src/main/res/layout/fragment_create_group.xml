@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CreateGroupFragment"
+    android:background="@color/background_color">
+
+    <EditText
+        android:id="@+id/groupNameET"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Group Name"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:textColorHint="@color/gray_color"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:textSize="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:elevation="@dimen/_3sdp"
+        android:fontFamily="@font/rubik_regular"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:elevation="@dimen/_3sdp"
+        android:id="@+id/timePickerLayout"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginHorizontal="@dimen/_15sdp">
+
+        <EditText
+            android:id="@+id/timePickerET"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Members"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColorHint="@color/gray_color"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timePickerIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/timePickerIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:src="@drawable/time_picker_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/categoryLV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/rounded_edittext"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="center_vertical"
+        android:hint="Combobox list"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:elevation="@dimen/_3sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/text_gray_color"
+        android:textSize="@dimen/_9sdp"
+        app:spinner_arrow_drawable="@drawable/icon_drop_down_small"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_padding="@dimen/_7sdp"
+        app:spinner_divider_color="@color/gray_color"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_item_array="@array/group_category_item"
+        app:spinner_item_height="@dimen/_40sdp"
+        app:spinner_popup_animation="dropdown"
+        app:spinner_popup_background="@drawable/rounded_edittext"
+        app:spinner_popup_elevation="@dimen/_10sdp" />
+
+    <TextView
+        android:id="@+id/addMembersTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_13sdp"
+        android:textSize="@dimen/_9sdp"
+        android:text="ADD MEMBERS"
+        android:textColor="@color/dark_green_color"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_3sdp"
+        android:fontFamily="@font/rubik_bold"/>
+
+    <TextView
+        android:id="@+id/saveTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/dark_green_color"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_13sdp"
+        android:textSize="@dimen/_11sdp"
+        android:text="SAVE"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:elevation="@dimen/_1sdp"
+        android:fontFamily="@font/rubik_medium"/>
+
+</LinearLayout>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:background="@color/background_color"
+    tools:context=".fragments.CreateScheduleFragment">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Name"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:textColorHint="@color/gray_color"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:textSize="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:elevation="@dimen/_3sdp"
+        android:fontFamily="@font/rubik_regular"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:elevation="@dimen/_3sdp"
+        android:id="@+id/timePickerLayout"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginHorizontal="@dimen/_15sdp">
+
+        <EditText
+            android:id="@+id/timePickerET"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Time"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColorHint="@color/gray_color"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timePickerIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/timePickerIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:src="@drawable/time_picker_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:elevation="@dimen/_3sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginTop="@dimen/_10sdp">
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Sports"
+            android:id="@+id/selectSportPicker"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/_9sdp"
+            android:background="@android:color/transparent"
+            android:inputType="none">
+        </AutoCompleteTextView>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_39sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:elevation="@dimen/_3sdp"
+        android:id="@+id/dateLayout"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_marginHorizontal="@dimen/_15sdp">
+
+        <EditText
+            android:id="@+id/datePickerET"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Date"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textColorHint="@color/gray_color"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/datePickerIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/datePickerIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_12sdp"
+            android:src="@drawable/date_picker_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/saveTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="@color/dark_green_color"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_13sdp"
+        android:textSize="@dimen/_11sdp"
+        android:text="SAVE"
+        android:layout_marginBottom="@dimen/_30sdp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:elevation="@dimen/_1sdp"
+        android:fontFamily="@font/rubik_medium"/>
+
+</LinearLayout>

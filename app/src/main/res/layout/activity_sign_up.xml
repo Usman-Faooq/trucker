@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity"
+    android:background="@color/background_color">
+
+
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/rubik_bold"
+        android:text="Sign Up"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@drawable/logo_image"/>
+
+
+        <EditText
+            android:id="@+id/firstNameET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_39sdp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="First Name"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:textColorHint="@color/gray_color"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:elevation="@dimen/_3sdp"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:fontFamily="@font/rubik_regular"/>
+
+
+        <EditText
+            android:id="@+id/lastNameET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_39sdp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Last Name"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:textColorHint="@color/gray_color"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:elevation="@dimen/_3sdp"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:fontFamily="@font/rubik_regular"/>
+
+        <EditText
+            android:id="@+id/emailET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_39sdp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Email Address"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:textColorHint="@color/gray_color"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:elevation="@dimen/_3sdp"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:fontFamily="@font/rubik_regular"/>
+
+        <EditText
+            android:id="@+id/phoneET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_39sdp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Phone Number"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:textColorHint="@color/gray_color"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:elevation="@dimen/_3sdp"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:fontFamily="@font/rubik_regular"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_39sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:elevation="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rounded_edittext"
+            android:layout_marginHorizontal="@dimen/_10sdp">
+
+            <EditText
+                android:id="@+id/passwordET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/rubik_regular"
+                android:hint="Password"
+                android:paddingVertical="@dimen/_12sdp"
+                android:textColorHint="@color/gray_color"
+                android:textSize="@dimen/_9sdp"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/eye_unhideicon"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/signUpTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:backgroundTint="@color/dark_green_color"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textSize="@dimen/_11sdp"
+            android:text="SIGN UP"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:elevation="@dimen/_1sdp"
+            android:fontFamily="@font/rubik_medium"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/signInTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Already have account? Sign In"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:textColor="@color/black_2"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

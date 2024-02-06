@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailActivity"
+    android:background="@color/background_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.appbroker.roundedimageview.RoundedImageView
+            android:id="@+id/coverIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_215sdp"
+            android:adjustViewBounds="true"
+            app:bottomLeftRadius="@dimen/_12sdp"
+            app:bottomRightRadius="@dimen/_12sdp"
+            android:src="@drawable/dummy_detail_img"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/backIV"
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_margin="@dimen/_15sdp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/rounded_brown_bg"
+            android:backgroundTint="@color/white_70"
+            android:fontFamily="@font/rubik_regular"
+            android:paddingHorizontal="@dimen/_7sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="17 Apr 2021"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/thumbUpIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/thumb_up_filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/backIV" />
+
+        <TextView
+            android:id="@+id/thumbUpTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:text="15k"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbUpIV"
+            app:layout_constraintStart_toEndOf="@+id/thumbUpIV"
+            app:layout_constraintTop_toTopOf="@+id/thumbUpIV" />
+
+        <ImageView
+            android:id="@+id/thumbDownIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:src="@drawable/thumb_down_unfill"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbUpTV"
+            app:layout_constraintStart_toEndOf="@+id/thumbUpTV"
+            app:layout_constraintTop_toTopOf="@+id/thumbUpTV" />
+
+
+        <TextView
+            android:id="@+id/thumbDownTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:text="105"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbDownIV"
+            app:layout_constraintStart_toEndOf="@+id/thumbDownIV"
+            app:layout_constraintTop_toTopOf="@+id/thumbDownIV" />
+
+        <ImageView
+            android:id="@+id/playIV"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/play_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Arm Muscles Workout"
+        android:textColor="@color/black_3"
+        android:textSize="@dimen/_18sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+    <ImageView
+        android:id="@+id/workoutIV"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@drawable/workout_icon"
+        android:backgroundTint="@color/white_70"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:src="@drawable/icon_workout_wb"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+    <TextView
+        android:id="@+id/workoutTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_3sdp"
+        android:text="Arm Muscle"
+        android:textColor="@color/text_gray_color"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/workoutIV"
+        app:layout_constraintStart_toEndOf="@+id/workoutIV"
+        app:layout_constraintTop_toTopOf="@+id/workoutIV" />
+
+    <ImageView
+        android:id="@+id/clockIV"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@drawable/clock_with_bg"
+        android:backgroundTint="@color/white_70"
+        android:src="@drawable/icon_clock_wb"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintStart_toEndOf="@+id/workoutTV"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+    <TextView
+        android:id="@+id/clockTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_3sdp"
+        android:text="45 min"
+        android:textColor="@color/text_gray_color"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockIV"
+        app:layout_constraintStart_toEndOf="@+id/clockIV"
+        app:layout_constraintTop_toTopOf="@+id/clockIV" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/workoutIV" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/item_design_comment_layout"
+        android:layout_marginHorizontal="@dimen/_11sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:stackFromEnd="false" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/commentET"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_3sdp"
+            android:background="@drawable/rounded_edittext"
+            android:backgroundTint="@color/background_color"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Write Comment"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            android:textColorHint="@color/gray_color"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintEnd_toStartOf="@+id/sendIV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/sendIV"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/icon_send"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

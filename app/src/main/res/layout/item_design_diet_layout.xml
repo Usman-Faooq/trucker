@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Diet Plan 1"
+    android:id="@+id/dietTV"
+    android:textColor="@color/black"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/_15sdp"
+    android:paddingVertical="15dp"
+    android:layout_marginHorizontal="@dimen/_7sdp"
+    android:textSize="@dimen/_12sdp"
+    android:fontFamily="@font/rubik_medium"
+    android:elevation="@dimen/_3sdp"
+    android:background="@drawable/rounded_edittext"/>

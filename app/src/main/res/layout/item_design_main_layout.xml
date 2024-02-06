@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="@dimen/_2sdp"
+    android:padding="@dimen/_11sdp"
+    android:layout_marginTop="@dimen/_3sdp"
+    android:layout_marginBottom="@dimen/_7sdp"
+    android:layout_marginHorizontal="@dimen/_15sdp"
+    android:background="@drawable/rounded_edittext">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.appbroker.roundedimageview.RoundedImageView
+            android:id="@+id/coverIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_140sdp"
+            android:adjustViewBounds="true"
+            app:radius="@dimen/_15sdp"
+            android:src="@drawable/dummy_holder_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.appbroker.roundedimageview.RoundedImageView
+            android:id="@+id/profileIV"
+            android:layout_width="@dimen/_27sdp"
+            android:layout_height="@dimen/_27sdp"
+            android:layout_margin="@dimen/_10sdp"
+            app:radius="@dimen/_20sdp"
+            android:src="@drawable/dumy_holder_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutLL"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/profileIV"
+            app:layout_constraintEnd_toStartOf="@+id/dateTV"
+            app:layout_constraintStart_toEndOf="@+id/profileIV"
+            app:layout_constraintTop_toTopOf="@+id/profileIV">
+
+
+            <TextView
+                android:id="@+id/userNameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Kieran Cross"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:background="@drawable/rounded_blue_bg"
+                android:fontFamily="@font/rubik_medium"
+                android:paddingHorizontal="@dimen/_7sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="Add Friend"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_6sdp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/rounded_brown_bg"
+            android:fontFamily="@font/rubik_regular"
+            android:paddingHorizontal="@dimen/_7sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="17 Apr 2021"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/thumbUpIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/thumb_up_filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/profileIV" />
+
+        <TextView
+            android:id="@+id/thumbUpTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:text="15k"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbUpIV"
+            app:layout_constraintStart_toEndOf="@+id/thumbUpIV"
+            app:layout_constraintTop_toTopOf="@+id/thumbUpIV" />
+
+        <ImageView
+            android:id="@+id/thumbDownIV"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:src="@drawable/thumb_down_unfill"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbUpTV"
+            app:layout_constraintStart_toEndOf="@+id/thumbUpTV"
+            app:layout_constraintTop_toTopOf="@+id/thumbUpTV" />
+
+
+        <TextView
+            android:id="@+id/thumbDownTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:text="105"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbDownIV"
+            app:layout_constraintStart_toEndOf="@+id/thumbDownIV"
+            app:layout_constraintTop_toTopOf="@+id/thumbDownIV" />
+
+
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:src="@drawable/play_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_11sdp"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Arm Muscles Workout"
+        android:textColor="@color/black_3"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
+
+
+    <ImageView
+        android:id="@+id/workoutIV"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:src="@drawable/workout_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+    <TextView
+        android:id="@+id/workoutTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_6sdp"
+        android:text="Arm Muscle"
+        android:textColor="@color/text_gray_color"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/workoutIV"
+        app:layout_constraintStart_toEndOf="@+id/workoutIV"
+        app:layout_constraintTop_toTopOf="@+id/workoutIV" />
+
+
+    <ImageView
+        android:id="@+id/clockIV"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:src="@drawable/clock_with_bg"
+        app:layout_constraintStart_toEndOf="@+id/workoutTV"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+    <TextView
+        android:id="@+id/clockTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_6sdp"
+        android:text="45 min"
+        android:textColor="@color/text_gray_color"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/clockIV"
+        app:layout_constraintStart_toEndOf="@+id/clockIV"
+        app:layout_constraintTop_toTopOf="@+id/clockIV" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

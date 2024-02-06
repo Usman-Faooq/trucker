@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "515048631434",
+    "project_id": "trucker-ca8c0",
+    "storage_bucket": "trucker-ca8c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515048631434:android:ef73ac1d640422b6e2d173",
+        "android_client_info": {
+          "package_name": "com.buzzware.truckerworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515048631434-tfoje8pvu15nk0fai12joeem3mja6817.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLt_yo4TpHdHzZiScylr-5pDv0CKAg830"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515048631434-tfoje8pvu15nk0fai12joeem3mja6817.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "515048631434-dr2p1fd8tmsnmelr38o8t05ct4rrurvb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Buzzwaretech.Trucker-World"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
