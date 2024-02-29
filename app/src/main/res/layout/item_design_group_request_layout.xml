@@ -40,7 +40,6 @@
                 android:id="@+id/imageView12"
                 android:layout_width="@dimen/_10sdp"
                 android:layout_height="@dimen/_10sdp"
-                android:src="@drawable/mark_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_3sdp"
                 android:fontFamily="@font/rubik_regular"
-                android:text="New York, United States"
+                android:text=""
                 android:textColor="@color/text_gray_color"
                 android:textSize="@dimen/_9sdp"
                 app:layout_constraintEnd_toEndOf="parent"

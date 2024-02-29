@@ -11,11 +11,21 @@ import com.buzzware.truckerworld.databinding.ItemDesignAddGroupMemberLayoutBindi
 import com.buzzware.truckerworld.databinding.ItemDesignGroupRequestLayoutBinding
 import com.buzzware.truckerworld.model.GroupModel
 
-class GroupRequestAdapter(val context: Context, val list: List<GroupModel?>?, private val listener: OnItemClickListener) :
+class GroupRequestAdapter(
+    val context: Context,
+    val list: List<GroupModel?>?,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<GroupRequestAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemDesignGroupRequestLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemDesignGroupRequestLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -38,7 +48,8 @@ class GroupRequestAdapter(val context: Context, val list: List<GroupModel?>?, pr
 
     }
 
-    inner class ViewHolder(val binding: ItemDesignGroupRequestLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemDesignGroupRequestLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
 
     interface OnItemClickListener {

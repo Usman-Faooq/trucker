@@ -47,6 +47,7 @@
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_12sdp"
             android:textSize="@dimen/_9sdp"
+            android:imeOptions="actionNext"
             android:text="sheikh@gmail.com"
             android:layout_marginTop="@dimen/_30sdp"
             android:elevation="@dimen/_3sdp"
@@ -70,7 +71,9 @@
                 android:hint="Password"
                 android:paddingVertical="@dimen/_12sdp"
                 android:textColorHint="@color/gray_color"
+                android:inputType="textPassword"
                 android:textSize="@dimen/_9sdp"
+                android:imeOptions="actionDone"
                 android:text="123456"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView3"
@@ -89,21 +92,17 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
         <TextView
             android:id="@+id/forgetPasswordTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:padding="@dimen/_4sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/rubik_regular"
             android:text="Forget Your Password?"
             android:textColor="@color/light_green_color"
             android:textSize="@dimen/_9sdp" />
-
-
 
         <TextView
             android:id="@+id/loginTV"
@@ -134,6 +133,7 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/black_2"
         android:textSize="@dimen/_9sdp"
+        android:padding="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

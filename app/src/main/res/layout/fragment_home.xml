@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.HomeFragment">
 
     <com.appbroker.roundedimageview.RoundedImageView
         android:id="@+id/profileIV"
         android:layout_width="@dimen/_39sdp"
         android:layout_height="@dimen/_39sdp"
-        android:src="@drawable/profile_dummy"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:radius="@dimen/_12sdp"
-        android:scaleType="fitXY"
         android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/post_place_holder_iv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:radius="@dimen/_12sdp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:background="@drawable/rounded_edittext"
         android:elevation="@dimen/_3sdp"
         android:paddingHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profileIV"
         app:layout_constraintTop_toTopOf="parent">
@@ -72,35 +72,124 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/friendRequestTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/gray_color"
+                android:fontFamily="@font/rubik_medium"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_12sdp"
+                android:text="Timeline"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:id="@+id/groupRequestTV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:fontFamily="@font/rubik_medium"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_12sdp"
+                android:text="Live Fit"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileIV">
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/titleTV"
+                android:id="@+id/warmup_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:visibility="gone"
+                android:background="@drawable/rounded_edittext"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/rubik_bold"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_marginHorizontal="@dimen/_15sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="LAST WORKOUT"
-                android:textColor="@color/black_3"
-                android:textSize="@dimen/_12sdp" />
+                android:text="TO GET THE MAXIMUM BENEFITS FROM YOUR DAILY WORKOUT ROUTINE, IT IS VERY IMPORTANT TO ALL WAYS STRETCH YOUR WHOLE JOINT AND BODY BEFORE YOUR DAILY WORKOUT SESSION!!!!"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/_15sdp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/livefitRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:visibility="gone"
+                android:paddingTop="@dimen/_15sdp" />
+
+            <com.appbroker.roundedimageview.RoundedImageView
+                android:id="@+id/live_fit_IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:visibility="gone"
+                android:scaleType="center"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:src="@drawable/img_live_fit_one"
+                app:radius="@dimen/_15sdp" />
+
+            <com.appbroker.roundedimageview.RoundedImageView
+                android:id="@+id/live_fit_four_IV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:src="@drawable/img_live_fit_four"
+                app:radius="@dimen/_15sdp" />
+
 
         </LinearLayout>
-
 
     </androidx.core.widget.NestedScrollView>
 

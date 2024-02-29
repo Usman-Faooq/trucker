@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/rubik_medium"
-        android:text="Jhon Erick"
+        tools:text="Jhon Erick"
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_5sdp"

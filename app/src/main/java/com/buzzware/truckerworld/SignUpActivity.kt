@@ -1,7 +1,9 @@
 package com.buzzware.truckerworld
 
+import android.Manifest
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +11,12 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.buzzware.truckerworld.classes.Constants
 import com.buzzware.truckerworld.classes.LocationUtility
 import com.buzzware.truckerworld.databinding.ActivitySignUpBinding
 import com.buzzware.truckerworld.model.User
+import com.buzzware.truckerworld.utils.setKeyboardHideOnClickListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,11 +33,15 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var locationUtility: LocationUtility
     private var token : String = ""
 
+    companion object {
+        val REQUEST_CODE = 1000
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.root.setKeyboardHideOnClickListener()
         locationUtility = LocationUtility(this)
 
         mAuth = FirebaseAuth.getInstance()
@@ -46,6 +54,24 @@ class SignUpActivity : AppCompatActivity() {
         setView()
         setListener()
 
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                REQUEST_CODE
+            )
+        }
 
     }
 
@@ -57,11 +83,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun setListener() {
 
         binding.signUpTV.setOnClickListener {
-            //val intent = Intent(this, SignUpSubscriptionActivity::class.java)
-            //startActivity(intent)
-
             createUser()
-
         }
 
         binding.signInTV.setOnClickListener {
@@ -94,14 +116,16 @@ class SignUpActivity : AppCompatActivity() {
                        email: String, phone: String, password: String) {
 
         mDialog.show()
-
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             token = it.result
         }
 
-        locationUtility.requestLocationUpdates {currentLocation ->
+        locationUtility.requestLocationUpdates { currentLocation ->
+            val lat = 33.66800727271232
+            val lng = 72.99849110126966
             mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
+                    Log.d("Looged", "createUserWithEmailAndPassword: $it")
                     val user: FirebaseUser? = it.user
                     var userID = user!!.uid
 
@@ -112,7 +136,7 @@ class SignUpActivity : AppCompatActivity() {
                         "password" to password,
                         "firstName" to firstName,
                         "image" to "",
-                        "isActive" to true,
+                        "isOnline" to true,
                         "isBanned" to true,
                         "lastName" to lastName,
                         "phoneNumber" to phone,
@@ -126,8 +150,9 @@ class SignUpActivity : AppCompatActivity() {
                         "token" to token
                     )
 
-                    val userModel = User(userID, firstName, lastName, "$firstName.$lastName",
-                        "", email, password, phone, "user", address, currentLocation.latitude, currentLocation.longitude)
+                    val userModel = User(
+                        userID, firstName, lastName, "$firstName.$lastName",
+                        "", email, password, phone, "user", address, lat = currentLocation.latitude, lng = currentLocation.longitude, isOnline = true)
 
                     locationUtility.removeLocationUpdates()
 
@@ -135,14 +160,14 @@ class SignUpActivity : AppCompatActivity() {
                         .set(userMap).addOnSuccessListener { _ ->
                             mDialog.dismiss()
                             Constants.currentUser = userModel
-                            val intent = Intent(this, SignUpSubscriptionActivity::class.java)
+                            val intent = Intent(this, DashBoard::class.java)
                             startActivity(intent)
                             finish()
                         }.addOnFailureListener {
                             mDialog.dismiss()
+                            Toast.makeText(this@SignUpActivity, it.message, Toast.LENGTH_SHORT).show()
                             Log.d("LOGGER", "Error2: ${it.message}")
                         }
-
 
 
                 }.addOnFailureListener {
@@ -167,6 +192,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         } catch (e: IOException) {
             Log.e("Geocoder", "Error getting address: ${e.message}")
+            Toast.makeText(this@SignUpActivity, e.message, Toast.LENGTH_SHORT).show()
         }
         return "$state, $country"
     }

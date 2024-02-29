@@ -1,7 +1,9 @@
 package com.buzzware.truckerworld
 
+import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.buzzware.truckerworld.adapters.AddGroupMemberAdapter
 import com.buzzware.truckerworld.classes.Constants
@@ -14,24 +16,23 @@ class AddMembersActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityAddMembersBinding
     private var userList: ArrayList<User?>? = ArrayList()
-
+    private lateinit var mDialog: ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddMembersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        mDialog = ProgressDialog(this)
+        mDialog.setMessage("Please wait...")
+        mDialog.setCancelable(false)
         getUsers()
-
     }
-
-
 
     private fun getUsers() {
 
-
-        val requestedUserIDs = Constants.currentUser.friends
-            ?.filterValues { it == "Accepted" }
+        mDialog.show()
+        val requestedUserIDs = Constants.currentUser.friendsList
+            ?.filterValues { it == "accepted" }
             ?.keys
 
 
@@ -41,13 +42,15 @@ class AddMembersActivity : AppCompatActivity() {
 
                 FirebaseFirestore.getInstance().collection("Users").document(userID)
                     .get().addOnSuccessListener {
-
+                        mDialog.dismiss()
                         val userData = it.toObject(User::class.java)
                         userList!!.add(userData)
+                        userData!!.userId = it.id
                         setAdapter()
 
                     }.addOnFailureListener {
-
+                        mDialog.dismiss()
+                        Toast.makeText(this@AddMembersActivity, it.message, Toast.LENGTH_SHORT).show()
                     }
             }
         }

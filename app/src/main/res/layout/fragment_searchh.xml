@@ -7,12 +7,53 @@
     android:background="@color/background_color"
     tools:context=".fragments.SearchhFragment">
 
+    <!--<androidx.appcompat.widget.SearchView
+        android:id="@+id/searchTV"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:elevation="@dimen/_3sdp"
+        app:searchIcon="@null"
+        app:queryHint="Search"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        app:iconifiedByDefault="false"
+        android:theme="@style/LocalSearchViewStyle"
+        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:background="@drawable/rounded_edittext"
+        android:paddingHorizontal="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_3sdp"
+        android:layout_marginStart="@dimen/_2sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTV"
+        app:layout_constraintStart_toStartOf="@+id/searchTV"
+        app:layout_constraintTop_toTopOf="@+id/searchTV"
+        app:srcCompat="@drawable/ic_glyph_local_search" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/searchBtn"
+        android:layout_width="@dimen/_27sdp"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_6sdp"
+        android:paddingHorizontal="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/searchTV"
+        app:layout_constraintEnd_toEndOf="@+id/searchTV"
+        app:layout_constraintTop_toTopOf="@+id/searchTV"
+        app:srcCompat="@drawable/icon_post_send" />-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="0dp"
         android:layout_height="@dimen/_38sdp"
-        android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:background="@drawable/rounded_edittext"
         android:elevation="@dimen/_3sdp"
         android:paddingHorizontal="@dimen/_10sdp"
@@ -50,15 +91,14 @@
         <ImageView
             android:id="@+id/postSendIV"
             android:layout_width="@dimen/_27sdp"
-            android:paddingHorizontal="@dimen/_7sdp"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_7sdp"
             android:src="@drawable/icon_post_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <androidx.recyclerview.widget.RecyclerView

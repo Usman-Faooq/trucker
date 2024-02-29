@@ -3,17 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/_11sdp"
-    android:background="@color/background_color">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/background_color"
+    android:paddingBottom="@dimen/_11sdp">
 
     <com.appbroker.roundedimageview.RoundedImageView
         android:id="@+id/profileIV"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
-        app:radius="@dimen/_20sdp"
-        android:src="@drawable/dumy_holder_profile"
+        android:src="@drawable/post_place_holder_iv"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:radius="@dimen/_20sdp" />
 
     <TextView
         android:id="@+id/contentTV"
@@ -22,7 +23,7 @@
         android:fontFamily="@font/rubik_regular"
         android:paddingLeft="@dimen/_10sdp"
         android:paddingRight="@dimen/_30sdp"
-        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
         android:textColor="@color/text_gray_color"
         android:textSize="@dimen/_9sdp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,10 +34,10 @@
         android:id="@+id/userNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/rubik_medium"
-        android:text="Jhon Erick"
         android:layout_marginTop="@dimen/_3sdp"
+        android:fontFamily="@font/rubik_medium"
         android:paddingLeft="@dimen/_10sdp"
+        tools:text="Jhon Erick"
         android:textColor="@color/black"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintStart_toEndOf="@+id/profileIV"
@@ -45,13 +46,14 @@
 
     <ImageView
         android:id="@+id/thumbUpIV"
-        android:layout_width="@dimen/_12sdp"
-        android:layout_height="@dimen/_13sdp"
+        android:layout_width="@dimen/_17sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:src="@drawable/thumb_up_filled"
         android:layout_marginTop="@dimen/_3sdp"
+        android:padding="@dimen/_3sdp"
         app:layout_constraintStart_toEndOf="@+id/profileIV"
         app:layout_constraintTop_toBottomOf="@+id/userNameTV"
+        tools:srcCompat="@drawable/thumb_up_filled"
         app:tint="@color/black" />
 
     <TextView
@@ -68,14 +70,15 @@
 
     <ImageView
         android:id="@+id/thumbDownIV"
-        android:layout_width="@dimen/_12sdp"
-        android:layout_height="@dimen/_13sdp"
+        android:layout_width="@dimen/_17sdp"
+        android:layout_height="@dimen/_18sdp"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:src="@drawable/thumb_down_unfill"
-        app:tint="@color/black"
+        android:padding="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="@+id/thumbUpTV"
         app:layout_constraintStart_toEndOf="@+id/thumbUpTV"
-        app:layout_constraintTop_toTopOf="@+id/thumbUpTV" />
+        app:layout_constraintTop_toTopOf="@+id/thumbUpTV"
+        app:srcCompat="@drawable/thumb_down_unfill"
+        app:tint="@color/black" />
 
 
     <TextView
@@ -89,5 +92,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/thumbDownIV"
         app:layout_constraintStart_toEndOf="@+id/thumbDownIV"
         app:layout_constraintTop_toTopOf="@+id/thumbDownIV" />
+
+    <ImageView
+        android:id="@+id/delete_IV"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:padding="@dimen/_13sdp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

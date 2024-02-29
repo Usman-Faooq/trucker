@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/mainLayout"
+    android:minWidth="@dimen/_40sdp"
     android:elevation="@dimen/_3sdp"
     android:layout_marginVertical="@dimen/_5sdp"
     android:layout_marginRight="@dimen/_5sdp"

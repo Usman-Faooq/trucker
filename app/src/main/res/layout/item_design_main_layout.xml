@@ -25,7 +25,7 @@
             android:layout_height="@dimen/_140sdp"
             android:adjustViewBounds="true"
             app:radius="@dimen/_15sdp"
-            android:src="@drawable/dummy_holder_image"
+            android:src="@drawable/post_place_holder_iv"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
             android:layout_height="@dimen/_27sdp"
             android:layout_margin="@dimen/_10sdp"
             app:radius="@dimen/_20sdp"
-            android:src="@drawable/dumy_holder_profile"
+            android:src="@drawable/post_place_holder_iv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,11 +59,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik_medium"
-                android:text="Kieran Cross"
+                tools:text="Kieran Cross"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_9sdp" />
 
             <TextView
+                android:id="@+id/add_friend_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
@@ -77,6 +78,14 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/rounded_brown_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbDownIV"
+            app:layout_constraintEnd_toEndOf="@+id/thumbDownTV"
+            app:layout_constraintStart_toStartOf="@+id/thumbUpIV"
+            app:layout_constraintTop_toTopOf="@+id/thumbDownIV" />
 
         <TextView
             android:id="@+id/dateTV"
@@ -96,8 +105,9 @@
 
         <ImageView
             android:id="@+id/thumbUpIV"
-            android:layout_width="@dimen/_12sdp"
-            android:layout_height="@dimen/_13sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:src="@drawable/thumb_up_filled"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -117,9 +127,10 @@
 
         <ImageView
             android:id="@+id/thumbDownIV"
-            android:layout_width="@dimen/_12sdp"
-            android:layout_height="@dimen/_13sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:padding="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/thumb_down_unfill"
             app:layout_constraintBottom_toBottomOf="@+id/thumbUpTV"
             app:layout_constraintStart_toEndOf="@+id/thumbUpTV"
@@ -131,8 +142,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_4sdp"
-            android:text="105"
+            tools:text="105"
             android:textColor="@color/white"
+            android:paddingEnd="@dimen/_5sdp"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@+id/thumbDownIV"
             app:layout_constraintStart_toEndOf="@+id/thumbDownIV"
@@ -140,6 +152,7 @@
 
 
         <ImageView
+            android:id="@+id/playIcon"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_margin="@dimen/_10sdp"
@@ -207,5 +220,17 @@
         app:layout_constraintStart_toEndOf="@+id/clockIV"
         app:layout_constraintTop_toTopOf="@+id/clockIV" />
 
+
+    <ImageView
+        android:id="@+id/delete_IV"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:src="@drawable/delete_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/clockIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/clockIV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

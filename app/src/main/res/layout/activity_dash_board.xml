@@ -2,11 +2,11 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashBoard"
-    android:id="@+id/drawerLayout"
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    tools:context=".DashBoard">
 
     <!-- Add your main content here -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include android:id="@+id/appbar"
+        <include
+            android:id="@+id/appbar"
             layout="@layout/appbar_home" />
-
 
         <FrameLayout
             android:id="@+id/container"
@@ -38,10 +38,10 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_55sdp"
-            android:orientation="horizontal"
-            android:weightSum="5"
             android:background="@color/white"
+            android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_15sdp"
+            android:weightSum="5"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
@@ -59,6 +59,7 @@
                 android:layout_weight="1"
                 android:padding="@dimen/_18sdp"
                 android:src="@drawable/nav_schedule_unselected" />
+
             <ImageView
                 android:id="@+id/add_tab"
                 android:layout_width="0dp"
@@ -99,8 +100,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/background_color">
+            android:background="@color/background_color"
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -158,9 +159,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Home"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -191,9 +192,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="My Schedule"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -224,9 +225,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Messages"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -257,9 +258,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Personal Route"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -290,9 +291,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Diet Plans"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -323,13 +324,46 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Online Members"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/onlineMemberIV"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/friendsLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        android:paddingHorizontal="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <ImageView
+                            android:id="@+id/friendsIV"
+                            android:layout_width="@dimen/_31sdp"
+                            android:layout_height="@dimen/_31sdp"
+                            android:src="@drawable/drawer_online_member"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:fontFamily="@font/rubik_medium"
+                            android:text="Friends"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/friendsIV"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -356,9 +390,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Request"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -389,9 +423,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="My Profile"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -422,9 +456,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Guidelines"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -455,9 +489,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:fontFamily="@font/rubik_medium"
                             android:text="Privacy Policy"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -493,9 +527,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:fontFamily="@font/rubik_medium"
                     android:text="Logout"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="parent"

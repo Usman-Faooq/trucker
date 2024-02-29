@@ -32,13 +32,13 @@ import java.util.*
 
 class EditProfileFragment : Fragment() {
 
-    lateinit var binding : FragmentEditProfileBinding
+    lateinit var binding: FragmentEditProfileBinding
 
-    lateinit var imageURI : Uri
+    lateinit var imageURI: Uri
 
     lateinit var mFirestore: FirebaseFirestore
 
-    lateinit var mDialog : ProgressDialog
+    lateinit var mDialog: ProgressDialog
     private lateinit var fragmentContext: Context
 
 
@@ -70,7 +70,7 @@ class EditProfileFragment : Fragment() {
         binding.phoneET.setText(Constants.currentUser.phoneNumber)
         Glide.with(requireActivity())
             .load(Constants.currentUser.image)
-            .placeholder(R.drawable.profile_dummy)
+            .placeholder(R.drawable.post_place_holder_iv)
             .fitCenter().into(binding.profileIV)
         binding.profileIV.scaleType = ImageView.ScaleType.FIT_XY
 
@@ -84,22 +84,21 @@ class EditProfileFragment : Fragment() {
                 .compress(1024)
                 .maxResultSize(1080, 1080)
                 .start()
-
         }
 
         binding.saveChangeTV.setOnClickListener {
 
             var fullName = binding.fullNameET.text
-            var userName : String = binding.userNameTV.text.toString()
-            var phone : String = binding.phoneET.text.toString()
+            var userName: String = binding.userNameTV.text.toString()
+            var phone: String = binding.phoneET.text.toString()
 
-            if (fullName.isEmpty()){
+            if (fullName.isEmpty()) {
 
-            }else if (userName.isEmpty()){
+            } else if (userName.isEmpty()) {
 
-            }else if (phone.isEmpty()){
+            } else if (phone.isEmpty()) {
 
-            }else{
+            } else {
                 var nameParts = fullName.split(" ")
                 var firstName = nameParts.firstOrNull()
                 var lastName = nameParts.lastOrNull()
@@ -111,21 +110,30 @@ class EditProfileFragment : Fragment() {
 
     }
 
-    private fun updateProfile(firstName: String?, lastName: String?, userName: String, phone: String) {
+    private fun updateProfile(
+        firstName: String?,
+        lastName: String?,
+        userName: String,
+        phone: String
+    ) {
 
-        if (imageURI != null){
+        if (imageURI != null) {
             mDialog.show()
-            var storageRef = FirebaseStorage.getInstance().reference.child("Images/${UUID.randomUUID()}.jpg")
+            var storageRef =
+                FirebaseStorage.getInstance().reference.child("Images/${UUID.randomUUID()}.jpg")
             var uploadTask = storageRef.putFile(imageURI)
             uploadTask.addOnSuccessListener {
 
                 storageRef.downloadUrl.addOnSuccessListener {
 
                     var imageUrl = it.toString()
-                    val updates = hashMapOf("firstName" to firstName, "lastName" to lastName,
-                        "username" to userName, "phoneNumber" to phone, "image" to imageUrl) as Map<String, Any>
+                    val updates = hashMapOf(
+                        "firstName" to firstName, "lastName" to lastName,
+                        "username" to userName, "phoneNumber" to phone, "image" to imageUrl
+                    ) as Map<String, Any>
 
-                    mFirestore.collection("Users").document(Constants.currentUser.userId).update(updates)
+                    mFirestore.collection("Users").document(Constants.currentUser.userId)
+                        .update(updates)
                     Toast.makeText(fragmentContext, "Updated", Toast.LENGTH_SHORT).show()
                     Constants.currentUser.image = imageUrl
                     Constants.currentUser.firstName = firstName!!
@@ -136,22 +144,21 @@ class EditProfileFragment : Fragment() {
 
                 }.addOnFailureListener {
                     mDialog.dismiss()
-                    Toast.makeText(requireActivity(), "Error1" + it.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(),  it.message, Toast.LENGTH_SHORT)
+                        .show()
                 }
 
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 mDialog.dismiss()
-                Toast.makeText(requireActivity(), "Error2" + it.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), it.message, Toast.LENGTH_SHORT).show()
             }
 
 
-        }else{
+        } else {
             Toast.makeText(requireActivity(), "Image is Empty", Toast.LENGTH_SHORT).show()
         }
 
     }
-
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

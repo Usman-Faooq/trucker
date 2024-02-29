@@ -2,13 +2,18 @@
     <string name="app_name">Trucker World</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_text_guide_line">At Trucker world, we strive to build a culture of trust, health, positivity, and support. We welcome all people to join our community-regardless of age.years of experience, ability level, body type or size, race, ethnicity, religion. gender, culture, or background \nTo help create an environment that is welcoming to all, we ask you to join us in following the guideline below-they are the foundation of our community.</string>
+    <string name="bottom_text_guide_line">Thank you in advance for following these guidelines &amp; helping to build a vibrant, welcoming community for all at TW!</string>
+    <string name="empathy_text_guide_line">Trucker world is designed for people from all background &amp; ability levels. Do your best to consider others experience and adjust your words to help create a welcoming environment for all.</string>
+    <string name="resources_text_guide_line">You\'re welcome to make use of all the resources that are available; the live tit workout videos, my schedule, personal route, alet plan, etc.</string>
+    <string name="communicate_respectfully_text_guide_line">Trucker world is a social space, and communicating respectfully with other builds trust and creates a shared experience. Do your best to acknowledge others with your words.</string>
+    <string name="be_supportive_text_guide_line">Always aim to lift others up and never tear anyone down. Look for opportunities to elevate others experiences by celebrating success and cheering on their efforts.</string>
+    <string name="open_mind_text_guide_line">We all aspire to follow these guidelines while acknowledging that no one is perfect. If Admin offers you an opportunity to reflect on these guidelines, please be open and listen to what they have to say. It\'s okay to respectfully disagree. In our space we assume the best of each other and are always working towards creating a better, safer, more welcoming environment for everyone.</string>
 
     <string-array name="group_category_item">
-        <item>Category 01</item>
-        <item>Category 02</item>
-        <item>Category 03</item>
-        <item>Category 04</item>
-        <item>Category 05</item>
+        <item>Cardio</item>
+        <item>Full Body</item>
+        <item>Warm Up</item>
     </string-array>
 
 </resources>

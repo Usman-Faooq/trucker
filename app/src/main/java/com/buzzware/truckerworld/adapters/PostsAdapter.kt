@@ -2,138 +2,236 @@ package com.buzzware.truckerworld.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.media.MediaMetadataRetriever
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.VideoView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.buzzware.truckerworld.DetailActivity
 import com.buzzware.truckerworld.OtherUserProfileActivity
 import com.buzzware.truckerworld.R
+import com.buzzware.truckerworld.VideoViewActivity
 import com.buzzware.truckerworld.classes.Constants
+import com.buzzware.truckerworld.classes.repo.FirebaseRepo
 import com.buzzware.truckerworld.databinding.ItemDesignMainLayoutBinding
-import com.buzzware.truckerworld.model.Posts
+import com.buzzware.truckerworld.model.Products
+import com.buzzware.truckerworld.model.User
+import com.buzzware.truckerworld.utils.convertSecondsToTimeFormat
+import com.buzzware.truckerworld.utils.formatTimestampToCustomFormat
+import com.buzzware.truckerworld.utils.goneViews
+import com.buzzware.truckerworld.utils.inVisible
+import com.buzzware.truckerworld.utils.invisibleViews
+import com.buzzware.truckerworld.utils.visible
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
-import wseemann.media.FFmpegMediaMetadataRetriever
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class PostsAdapter(val context: Context, val list: ArrayList<Posts?>?, var userId : String) :
-    RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
+class PostsAdapter(
+    val context: Context,
+    val productsList: ArrayList<Products?>?,
+    val userList: ArrayList<User?>?,
+    var userId: String
+) : RecyclerView.Adapter<PostsAdapter.ViewHolder>() {
 
     var fName = ""
     var lName = ""
     var imageUrl = ""
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemDesignMainLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemDesignMainLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
-        return list!!.size //list.size
+        return productsList!!.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var posts = list!!.get(position)
+        val item = productsList!!.get(position)
+        holder.bind(productsList.get(position)!!)
 
-        if (posts!!.userId.equals(userId)){
+        userList!!.forEach { userItem ->
+            if (userItem!!.userId == item!!.userId) {
+                fName = userItem.firstName
+                lName = userItem.lastName
+                imageUrl = userItem.image
+                holder.binding.userNameTV.text = "$fName $lName"
+                if (imageUrl != null && imageUrl != "") {
+                    Glide.with(context).load(imageUrl).into(holder.binding.profileIV)
+                }
+            }
+        }
 
-            holder.binding.profileIV.visibility = View.INVISIBLE
-            holder.binding.layoutLL.visibility = View.INVISIBLE
+        holder.apply {
+            binding.apply {
+                //setLikeCount(item,binding)
+                thumbUpTV.text = item!!.likedBy!!.filterValues { it }.keys.size.toString()
+                thumbDownTV.text = item.likedBy!!.filterValues { !it }.keys.size.toString()
+            }
+        }
+    }
 
-        }else{
+    private fun setLikeCount(list: Products, binding: ItemDesignMainLayoutBinding) {
+        var trueCount = 0
+        var falseCount = 0
 
-            FirebaseFirestore.getInstance().collection("Users")
-                .document(posts!!.userId).get()
-                .addOnSuccessListener {
+        list.likedBy?.entries?.forEach { entry ->
+            if (entry.value) {
+                trueCount++
+            } else {
+                falseCount++
+            }
+        }
 
-                    fName = it.get("firstName").toString()
-                    lName = it.get("lastName").toString()
-                    imageUrl = it.get("image").toString()
-                    holder.binding.userNameTV.text = "$fName $lName"
+        binding.thumbUpTV.text = trueCount.toString()
+        binding.thumbDownTV.text = falseCount.toString()
+    }
 
-                    if (imageUrl!= null && imageUrl != ""){
-                        Glide.with(context).load(imageUrl)
-                            .error(R.drawable.profile_dummy)
-                            .placeholder(R.drawable.profile_dummy)
-                            .into(holder.binding.profileIV)
+    inner class ViewHolder(val binding: ItemDesignMainLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Products) {
+
+            binding.apply {
+
+                if (item.addedby.equals("admin")) {
+                    goneViews(
+                        thumbDownTV,
+                        thumbDownIV,
+                        thumbUpTV,
+                        thumbUpIV,
+                        addFriendTv,
+                        userNameTV,
+                        profileIV
+                    )
+                }
+
+                if (item.addedby.equals("admin")) {
+                    root.setOnClickListener {
+                        val intent = Intent(context, VideoViewActivity::class.java)
+                        intent.putExtra("URL", item.videoLink)
+                        context.startActivity(intent)
                     }
+                } else {
+                    root.setOnClickListener {
+                        val intent = Intent(context, DetailActivity::class.java)
+                        intent.apply {
+                            putExtra("post_data", item)
+                            putExtra("userName", "$fName $lName")
+                            putExtra("postType", item.postType)
+                            putExtra("userImage", imageUrl)
+                        }
+                        context.startActivity(intent)
+                    }
+                }
+                if (item.userId.equals(userId)) {
+                    addFriendTv.inVisible()
+                }
+                Glide.with(context).load(item.thumbnailImage)
+                    .error(R.drawable.post_place_holder_iv)
+                    .placeholder(R.drawable.post_place_holder_iv)
+                    .into(coverIV)
 
-                }.addOnFailureListener {
+
+                coverIV.scaleType = ImageView.ScaleType.CENTER_CROP
+                titleTV.text = item.description
+                dateTV.text = formatTimestampToCustomFormat(item.publishDate)
+                clockTV.text = convertSecondsToTimeFormat(item.duration)
+
+                profileIV.setOnClickListener {
+                    val intent = Intent(context, OtherUserProfileActivity::class.java)
+                    intent.putExtra("userId", item.userId)
+                    context.startActivity(intent)
 
                 }
 
+                if (item.postType.equals("image")) {
+                    invisibleViews(clockTV, clockIV, playIcon)
+                }
 
-        }
+                val currentUserLiked = item.likedBy[Constants.currentUser.userId]
 
-
-        //val durationInMillis = getVideoDuration(posts!!.videoUrl)
-        //val formattedDuration = formatVideoDuration(durationInMillis)
-
-
-        Glide.with(context).load(posts!!.thumbnailImage)
-            .error(R.drawable.post_place_holder_iv)
-            .placeholder(R.drawable.post_place_holder_iv)
-            .into(holder.binding.coverIV)
-        holder.binding.coverIV.scaleType = ImageView.ScaleType.CENTER_CROP
-        holder.binding.titleTV.text = posts.description
-        holder.binding.dateTV.text = formatTimestampToCustomFormat(posts.publishDate)
-        //holder.binding.clockTV.text = formattedDuration
-
-        holder.binding.profileIV.setOnClickListener {
-            val intent = Intent(context, OtherUserProfileActivity::class.java)
-            intent.putExtra("userId", posts.userId)
-
-            context.startActivity(intent)
-        }
-
-        holder.binding.root.setOnClickListener {
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("post_data", posts)
-            intent.putExtra("userName", "$fName $lName")
-            intent.putExtra("userImage", imageUrl)
-
-            context.startActivity(intent)
-        }
-
-        holder.binding.thumbUpTV.text = (posts.likedBy?.size ?: 0).toString()
-        if (posts?.likedBy?.contains(Constants.currentUser.userId) == true) {
-            holder.binding.thumbUpIV.setImageResource(R.drawable.thumb_up_filled)
-        } else {
-            holder.binding.thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
-        }
+                if (currentUserLiked != null) {
+                    if (currentUserLiked) {
+                        // Current user has liked the post
+                        thumbUpIV.setImageResource(R.drawable.thumb_up_filled)
+                        thumbDownIV.setImageResource(R.drawable.thumb_down_unfill)
+                    } else {
+                        // Current user has not liked the post
+                        thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
+                        thumbDownIV.setImageResource(R.drawable.thumb_down_filled)
+                    }
+                } else {
+                    thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
+                    thumbDownIV.setImageResource(R.drawable.thumb_down_unfill)
+                }
 
 
-        // Like Button
-        holder.binding.thumbUpIV.setOnClickListener {
-            if (posts?.likedBy?.contains(Constants.currentUser.userId) == true) {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(posts.postId).update("likedBy", FieldValue.arrayRemove(Constants.currentUser.userId))
-                posts.removeLike(Constants.currentUser.userId)
-            } else {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(posts.postId).update("likedBy", FieldValue.arrayUnion(Constants.currentUser.userId))
-                posts.addLike(Constants.currentUser.userId)
+                thumbUpIV.setOnClickListener {
+                    if (currentUserLiked != null) {
+                        if (currentUserLiked) {
+                            FirebaseRepo.removeField(post = item)
+                            Products().removeLike(Constants.currentUser.userId)
+                        } else {
+                            FirebaseRepo.handleLikeDislike(post = item, isLike = true, onSuccess = {
+                                notifyItemChanged(absoluteAdapterPosition)
+                                Products().setUserLike(Constants.currentUser.userId, true)
+                            }, onFailure = {
+                                Log.e("dislike", "Error adding dislike: $it")
+                            })
+                        }
+                    } else {
+                        FirebaseRepo.handleLikeDislike(post = item, isLike = true, onSuccess = {
+                            notifyItemChanged(absoluteAdapterPosition)
+                            Products().setUserLike(Constants.currentUser.userId, true)
+                        }, onFailure = {
+                            Log.e("dislike", "Error adding dislike: $it")
+                        })
+                    }
+                    notifyItemChanged(position)
+                }
+
+                thumbDownIV.setOnClickListener {
+                    if (currentUserLiked != null) {
+                        if (!currentUserLiked) {
+                            FirebaseRepo.removeField(post = item)
+                            Products().removeLike(Constants.currentUser.userId)
+                        } else {
+                            FirebaseRepo.handleLikeDislike(
+                                post = item,
+                                isLike = false,
+                                onSuccess = {
+                                    notifyItemChanged(absoluteAdapterPosition)
+                                    Products().setUserLike(Constants.currentUser.userId, false)
+                                },
+                                onFailure = {
+                                    Log.e("dislike", "Error adding dislike: $it")
+                                })
+                        }
+                    } else {
+                        FirebaseRepo.handleLikeDislike(post = item, isLike = false, onSuccess = {
+                            notifyItemChanged(absoluteAdapterPosition)
+                            Products().setUserLike(Constants.currentUser.userId, false)
+                        }, onFailure = {
+                            Log.e("dislike", "Error adding dislike: $it")
+                        })
+                    }
+                }
             }
-            notifyItemChanged(position)
         }
-
     }
-
-    inner class ViewHolder(val binding: ItemDesignMainLayoutBinding) : RecyclerView.ViewHolder(binding.root)
-
-    private fun formatTimestampToCustomFormat(timestamp: Long): String {
-        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
-        val date = Date(timestamp)
-        return dateFormat.format(date)
-    }
-
-
 }

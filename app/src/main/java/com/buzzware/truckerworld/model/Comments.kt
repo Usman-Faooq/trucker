@@ -10,8 +10,7 @@ data class Comments(
     var timeStamp: Long = 0,
     var toId: String = "",
     var type: String = "",
-    var likedBy: ArrayList<String>? = null,
-    var dislikedBy: ArrayList<String>? = null
+    var likedBy: HashMap<String, Boolean> = hashMapOf()
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -21,8 +20,7 @@ data class Comments(
         parcel.readLong(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        parcel.createStringArrayList()?.let { ArrayList(it) },
-        parcel.createStringArrayList()?.let { ArrayList(it) }
+        parcel.readSerializable() as HashMap<String, Boolean>
     )
 
 
@@ -33,8 +31,7 @@ data class Comments(
         parcel.writeLong(timeStamp)
         parcel.writeString(toId)
         parcel.writeString(type)
-        parcel.writeStringList(likedBy)
-        parcel.writeStringList(dislikedBy)
+        parcel.writeSerializable(likedBy)
     }
 
     override fun describeContents(): Int {
@@ -51,7 +48,7 @@ data class Comments(
         }
     }
 
-    fun addLike(userId: String) {
+    /*fun addLike(userId: String) {
         if (likedBy == null) {
             likedBy = ArrayList()
         }
@@ -68,11 +65,11 @@ data class Comments(
             dislikedBy = ArrayList()
         }
         dislikedBy?.add(userId)
-    }
+    }*/
 
     // Remove a user from the likedby list
-    fun removeDislike(userId: String) {
+ /*   fun removeDislike(userId: String) {
         dislikedBy?.remove(userId)
-    }
+    }*/
 
 }

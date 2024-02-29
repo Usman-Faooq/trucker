@@ -19,9 +19,6 @@ import java.util.ArrayList
 class ChatAdapter(val context: Context, val list: ArrayList<ChatModel?>?) :
     RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
 
-    //private var name = ""
-    //private var imageUrl = ""
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemChatLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -40,10 +37,10 @@ class ChatAdapter(val context: Context, val list: ArrayList<ChatModel?>?) :
                 var fName = documentSnapshot.getString("firstName") ?: ""
                 var lName = documentSnapshot.getString("lastName") ?: ""
                 var name = "$fName $lName"
-                var imageUrl = documentSnapshot.getString("imageUrl") ?: ""
+                var imageUrl = documentSnapshot.getString("image") ?: ""
 
                 Glide.with(context).load(imageUrl)
-                    .placeholder(R.drawable.profile_dummy)
+                    .placeholder(R.drawable.post_place_holder_iv)
                     .into(holder.binding.imageView9)
                 holder.binding.userNameTV.text = name
 

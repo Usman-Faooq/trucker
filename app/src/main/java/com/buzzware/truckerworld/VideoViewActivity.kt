@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.media3.common.MediaItem
+import androidx.media3.common.PlaybackException
+import androidx.media3.common.Player
+import androidx.media3.exoplayer.ExoPlayer
 import com.buzzware.truckerworld.databinding.ActivityVideoViewBinding
 
 
 class VideoViewActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityVideoViewBinding
+    lateinit var binding: ActivityVideoViewBinding
     lateinit var mDialog: ProgressDialog
     var videoUrl = ""
+    private lateinit var player: ExoPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,28 +26,55 @@ class VideoViewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mDialog = ProgressDialog(this)
-        mDialog.setMessage("Please wait...")
+        mDialog.setMessage("Loading...")
         mDialog.setCancelable(false)
 
         videoUrl = intent.getStringExtra("URL").toString()
 
+        player = ExoPlayer.Builder(this).build()
+
         val uri: Uri = Uri.parse(videoUrl)
-        binding.videoView.setVideoURI(uri)
-        val mediaController = MediaController(this)
-        mediaController.setAnchorView(binding.videoView)
-        mediaController.setMediaPlayer(binding.videoView)
-        binding.videoView.setMediaController(mediaController)
+        binding.apply {
 
-        mDialog.show()
-        binding.videoView.setOnPreparedListener { mediaPlayer ->
-            mDialog.dismiss()
-            binding.videoView.start()
-        }
+            backIV.setOnClickListener {
+                finish()
+            }
 
-        binding.videoView.setOnErrorListener { mediaPlayer, i, i1 ->
-            mDialog.dismiss()
-            Toast.makeText(this@VideoViewActivity, "Error playing video", Toast.LENGTH_SHORT).show()
-            true
+            exoVideoView.player = player
+            val mediaItem = MediaItem.fromUri(uri)
+            player.apply {
+                setMediaItem(mediaItem)
+                prepare()
+                play()
+            }
+            player.addListener(object : Player.Listener {
+                override fun onIsPlayingChanged(isPlaying: Boolean) {
+                    if (isPlaying) {
+                        mDialog.hide()
+                    } else {
+                        mDialog.show()
+                    }
+                }
+
+
+                override fun onPlaybackStateChanged(state: Int) {
+                    // Handle playback state changes if needed
+                }
+
+                override fun onPlayerError(error: PlaybackException) {
+                    Toast.makeText(this@VideoViewActivity, error.message, Toast.LENGTH_SHORT).show()
+                }
+            })
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        player.stop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        player.stop()
     }
 }

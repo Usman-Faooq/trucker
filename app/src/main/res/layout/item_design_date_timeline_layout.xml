@@ -7,19 +7,29 @@
 
     <ImageView
         android:id="@+id/imageView15"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:src="@drawable/time_line_view"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:src="@drawable/ic_dot"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="@dimen/_2sdp"
+        android:layout_height="0dp"
+        android:background="@color/dark_green_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView15"
+        app:layout_constraintStart_toStartOf="@+id/imageView15"
+        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/dateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tue, 10 July 2023"
         android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_6sdp"
         android:fontFamily="@font/rubik_regular"
         android:textSize="@dimen/_11sdp"
         android:textColor="@color/text_gray_color"
@@ -38,8 +48,8 @@
         android:padding="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView7">
+        app:layout_constraintStart_toStartOf="@+id/dateTV"
+        app:layout_constraintTop_toBottomOf="@+id/dateTV">
 
         <LinearLayout
             android:id="@+id/linearLayout4"
@@ -129,12 +139,4 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

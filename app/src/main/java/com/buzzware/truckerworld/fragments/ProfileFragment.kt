@@ -9,44 +9,50 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.buzzware.truckerworld.R
 import com.buzzware.truckerworld.adapters.PostsAdapter
+import com.buzzware.truckerworld.adapters.ProfileProductAdapter
 import com.buzzware.truckerworld.classes.Constants
 import com.buzzware.truckerworld.databinding.FragmentProfileBinding
-import com.buzzware.truckerworld.model.Posts
+import com.buzzware.truckerworld.model.Products
+import com.buzzware.truckerworld.model.User
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import java.util.ArrayList
 
 
 class ProfileFragment : Fragment() {
 
-    lateinit var binding : FragmentProfileBinding
+    lateinit var binding: FragmentProfileBinding
     private lateinit var fragmentContext: Context
-    private var postList: ArrayList<Posts?>? = ArrayList()
-    lateinit var adapter: PostsAdapter
+    private lateinit var dialog: ProgressDialog
+    private var postList: ArrayList<Products?>? = ArrayList()
+    private var userList: ArrayList<User?>? = ArrayList()
+    lateinit var adapter: ProfileProductAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(layoutInflater)
+        dialog = ProgressDialog(requireContext())
 
         getData()
         setView()
-        setListener()
 
         return binding.root
     }
 
     private fun getData() {
+        showDialog()
         FirebaseFirestore.getInstance().collection("Products")
             .addSnapshotListener { queryDocumentSnapshots, error ->
                 if (error != null) {
                     // Handle error
-                    Log.d("LOGGER", "Exception " + error.message);
+                    hideDialog()
+                    Toast.makeText(requireContext(), error.message, Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener;
                 }
 
@@ -54,42 +60,72 @@ class ProfileFragment : Fragment() {
                 if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty) {
 
                     queryDocumentSnapshots.forEach {
-                        val model = it.toObject(Posts::class.java)
-                        if (model.userId.equals(Constants.currentUser.userId)){
+                        val model = it.toObject(Products::class.java)
+                        if (model.userId.equals(Constants.currentUser.userId)) {
+                            model.postId = it.id
                             postList!!.add(model)
                         }
                     }
-                    setAdapter()
+
+                    getAllUser()
                 }
-
             }
-        postList!!.clear()
+    }
 
+
+    private fun getAllUser() {
+        FirebaseFirestore.getInstance().collection("Users")
+            .get()
+            .addOnSuccessListener { queryDocumentSnapshots ->
+                val tempUserList = mutableListOf<User>()
+                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty) {
+                    queryDocumentSnapshots.forEach {
+                        val model = it.toObject(User::class.java)
+                        model.userId = it.id
+                        tempUserList.add(model)
+                    }
+                    userList?.addAll(tempUserList)
+                    setAdapter()
+                    hideDialog()
+                }
+            }
     }
 
     private fun setAdapter() {
-        val layoutManager = LinearLayoutManager(fragmentContext, LinearLayoutManager.VERTICAL, false)
+        val layoutManager =
+            LinearLayoutManager(fragmentContext, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView1.layoutManager = layoutManager
-        adapter = PostsAdapter(fragmentContext, postList, Constants.currentUser.userId)
+        adapter = ProfileProductAdapter(fragmentContext, postList, userList, Constants.currentUser.userId)
         binding.recyclerView1.adapter = adapter
 
     }
 
     private fun setView() {
 
-        binding.userNameTV.text = Constants.currentUser.firstName + " " + Constants.currentUser.lastName
-        Glide.with(requireActivity()).load(Constants.currentUser.image).placeholder(R.drawable.profile_dummy).fitCenter().into(binding.profileIV)
+        binding.apply {
+            userNameTV.text =
+                "${Constants.currentUser.firstName}  ${Constants.currentUser.lastName}"
+            cityTV.text = Constants.currentUser.address
+        }
+
+        Glide.with(requireActivity()).load(Constants.currentUser.image)
+            .placeholder(R.drawable.post_place_holder_iv).fitCenter().into(binding.profileIV)
         binding.profileIV.scaleType = ImageView.ScaleType.FIT_XY
 
 
-
     }
 
-    private fun setListener() {
-
-
+    private fun showDialog(msg: String = "Please wait...") {
+        dialog.apply {
+            setMessage(msg)
+            setCancelable(true)
+            show()
+        }
     }
 
+    private fun hideDialog() {
+        dialog.dismiss()
+    }
 
     override fun onResume() {
         super.onResume()

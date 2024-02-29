@@ -12,6 +12,7 @@
         android:layout_height="@dimen/_33sdp"
         android:src="@drawable/profile_dummy"
         android:layout_marginVertical="@dimen/_12sdp"
+        android:scaleType="centerCrop"
         app:radius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:paddingRight="@dimen/_30sdp">
+            android:layout_marginTop="@dimen/_2sdp">
 
             <ImageView
                 android:id="@+id/imageView12"
@@ -59,9 +59,11 @@
                 android:id="@+id/contentTV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_3sdp"
                 android:fontFamily="@font/rubik_regular"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:text="York, United States"
+                android:maxLines="1"
+                android:ellipsize="marquee"
                 android:textColor="@color/text_gray_color"
                 android:textSize="@dimen/_9sdp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +84,7 @@
         android:text="Accept"
         android:fontFamily="@font/rubik_regular"
         android:layout_marginRight="@dimen/_5sdp"
-        android:textColor="@color/text_gray_color"
+        android:textColor="@color/gray_color"
         android:textSize="@dimen/_9sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ignoreTV"

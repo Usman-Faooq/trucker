@@ -8,8 +8,6 @@
     android:background="@color/background_color">
 
 
-
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -49,6 +47,7 @@
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_12sdp"
             android:textSize="@dimen/_9sdp"
+            android:inputType="textCapWords"
             android:layout_marginTop="@dimen/_30sdp"
             android:elevation="@dimen/_3sdp"
             android:singleLine="true"
@@ -67,6 +66,7 @@
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_12sdp"
             android:textSize="@dimen/_9sdp"
+            android:inputType="textCapWords"
             android:layout_marginTop="@dimen/_10sdp"
             android:elevation="@dimen/_3sdp"
             android:singleLine="true"
@@ -96,6 +96,7 @@
             android:layout_height="@dimen/_39sdp"
             android:background="@drawable/rounded_edittext"
             android:hint="Phone Number"
+            android:inputType="phone"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:textColorHint="@color/gray_color"
             android:paddingHorizontal="@dimen/_10sdp"
@@ -123,11 +124,12 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/rubik_regular"
                 android:hint="Password"
+                android:inputType="textPassword"
                 android:paddingVertical="@dimen/_12sdp"
                 android:textColorHint="@color/gray_color"
                 android:textSize="@dimen/_9sdp"
                 android:singleLine="true"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageView3"
                 app:layout_constraintStart_toStartOf="parent"
@@ -175,6 +177,7 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/black_2"
         android:textSize="@dimen/_9sdp"
+        android:padding="@dimen/_4sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

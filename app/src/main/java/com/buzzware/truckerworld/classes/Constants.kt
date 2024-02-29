@@ -9,7 +9,4 @@ object Constants {
     lateinit var currentUser: User
 
     var userMap : HashMap<String, String> = hashMapOf()
-
-
-
 }

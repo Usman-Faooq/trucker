@@ -7,7 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
+    <color name="shuttle_grey">#515357</color>
+    <color name="transparent">#00000000</color>
+    <color name="concrete">#f3f3f3</color>
     <color name="white_70">#B3FFFFFF</color>
 
 

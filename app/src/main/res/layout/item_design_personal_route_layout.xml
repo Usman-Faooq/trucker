@@ -4,29 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_15sdp"
+    android:layout_marginStart="@dimen/_15sdp"
     android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginHorizontal="@dimen/_15sdp"
+    android:layout_marginEnd="@dimen/_15sdp"
     android:background="@drawable/rounded_edittext"
-    android:elevation="@dimen/_3sdp">
+    android:elevation="@dimen/_3sdp"
+    android:paddingBottom="@dimen/_15sdp">
 
     <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="@dimen/_20sdp"
-        android:layout_height="@dimen/_20sdp"
+        android:id="@+id/delete_IV"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:padding="@dimen/_10sdp"
         android:src="@drawable/delete_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/group_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/rubik_medium"
         android:text="Group Name"
         android:textColor="@color/black"
         android:textSize="@dimen/_12sdp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
+        app:layout_constraintEnd_toStartOf="@+id/delete_IV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,16 +43,40 @@
         android:text="25 videos uploaded by the members"
         android:textColor="@color/text_gray_color"
         android:textSize="@dimen/_9sdp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toStartOf="@+id/delete_IV"
+        app:layout_constraintStart_toStartOf="@+id/group_name"
+        app:layout_constraintTop_toBottomOf="@+id/group_name" />
+<!--
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:id="@+id/groupAdminRV"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toStartOf="@+id/delete_IV"
+        app:layout_constraintStart_toEndOf="@+id/groupAdminIV"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        tools:listitem="@layout/item_child_personal_route" />
 
+    <com.appbroker.roundedimageview.RoundedImageView
+        android:id="@+id/groupAdminIV"
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_19sdp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:radius="@dimen/_60sdp"
+        app:srcCompat="@drawable/ic_launcher_background" />-->
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5">
 
         <ImageView
@@ -59,59 +87,59 @@
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv2"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv2" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv3"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv3" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv4"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv4" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv5"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv5" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv6"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv6" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv1"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv1" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv2"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv2" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv3"
-            android:layout_marginLeft="-6dp"/>
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv3" />
 
         <ImageView
             android:layout_width="@dimen/_19sdp"
             android:layout_height="@dimen/_19sdp"
-            android:src="@drawable/group_iv4"
-            android:layout_marginLeft="-6dp"/>
-
+            android:layout_marginLeft="-6dp"
+            android:src="@drawable/group_iv4" />
 
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

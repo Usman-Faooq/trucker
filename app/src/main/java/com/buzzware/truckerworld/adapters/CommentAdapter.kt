@@ -2,8 +2,13 @@ package com.buzzware.truckerworld.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.buzzware.truckerworld.ChatActivity
@@ -20,11 +25,17 @@ class CommentAdapter(val context: Context, val list: ArrayList<Comments?>?, val 
     RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemDesignCommentLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemDesignCommentLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
-        return list!!.size//list.size
+        return list!!.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -35,66 +46,103 @@ class CommentAdapter(val context: Context, val list: ArrayList<Comments?>?, val 
             .addOnSuccessListener {
                 var fName = it.getString("firstName")
                 var lName = it.getString("lastName")
-                var imageUrl = it.getString("imageUrl")
+                var imageUrl = it.getString("image")
 
                 holder.binding.userNameTV.text = "$fName $lName"
-                if (imageUrl!= null && imageUrl != ""){
+                if (imageUrl != null && imageUrl != "") {
                     Glide.with(context).load(imageUrl)
-                        .error(R.drawable.profile_dummy)
-                        .placeholder(R.drawable.profile_dummy)
+                        .error(R.drawable.post_place_holder_iv)
+                        .placeholder(R.drawable.post_place_holder_iv)
                         .into(holder.binding.profileIV)
                 }
             }
 
-        holder.binding.contentTV.text = model.content
+        holder.apply {
+            binding.apply {
+                thumbUpTV.text = model.likedBy.filterValues { it }.keys.size.toString()
+                thumbDownTV.text = model.likedBy.filterValues { !it }.keys.size.toString()
+                contentTV.text = model.content
 
-        holder.binding.thumbUpTV.text = (model.likedBy?.size ?: 0).toString()
-        holder.binding.thumbDownTV.text = (model.dislikedBy?.size ?: 0).toString()
-        if (model?.likedBy?.contains(Constants.currentUser.userId) == true) {
-            holder.binding.thumbUpIV.setImageResource(R.drawable.thumb_up_filled)
-        } else {
-            holder.binding.thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
-        }
+                var currentUserLiked = model?.likedBy?.get(Constants.currentUser.userId)
 
-        if (model?.dislikedBy?.contains(Constants.currentUser.userId) == true) {
-            holder.binding.thumbDownIV.setImageResource(R.drawable.thumb_down_filled)
-        } else {
-            holder.binding.thumbDownIV.setImageResource(R.drawable.thumb_down_unfill)
-        }
 
-        // Like Button
-        holder.binding.thumbUpIV.setOnClickListener {
-            if (model?.likedBy?.contains(Constants.currentUser.userId) == true) {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postId).collection("Comments")
-                    .document(model.commentId).update("likedBy", FieldValue.arrayRemove(Constants.currentUser.userId))
-                model.removeLike(Constants.currentUser.userId)
-            } else {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postId).collection("Comments")
-                    .document(model.commentId).update("likedBy", FieldValue.arrayUnion(Constants.currentUser.userId))
-                model.addLike(Constants.currentUser.userId)
+                if (currentUserLiked != null) {
+                    if (currentUserLiked) {
+                        // Current user has liked the post
+                        thumbUpIV.setImageResource(R.drawable.ic_like_black)
+                        thumbDownIV.setImageResource(R.drawable.thumb_down_unfill)
+                    } else {
+                        // Current user has not liked the post
+                        thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
+                        thumbDownIV.setImageResource(R.drawable.ic_dislike_black)
+                    }
+                } else {
+                    thumbUpIV.setImageResource(R.drawable.thumb_up_unfill)
+                    thumbDownIV.setImageResource(R.drawable.thumb_down_unfill)
+                }
+
+                val commentRef =
+                    FirebaseFirestore.getInstance().collection("Products").document(postId)
+                        .collection("Comments").document(model.commentId)
+
+                if(model.fromId == Constants.currentUser.userId){
+                    holder.binding.apply {
+                        deleteIV.visibility = View.VISIBLE
+                        deleteIV.setOnClickListener {
+                            commentRef.delete()
+                            notifyDataSetChanged()
+                        }
+                    }
+                }
+
+                thumbUpIV.setOnClickListener {
+                    if (currentUserLiked != null) {
+                        if (currentUserLiked!!) {
+                            commentRef.update(
+                                "likedBy.${Constants.currentUser.userId}",
+                                FieldValue.delete()
+                            )
+                            currentUserLiked = false
+                        } else {
+                            commentRef.update("likedBy.${Constants.currentUser.userId}", true)
+                            currentUserLiked =true
+                        }
+                    } else {
+                        commentRef.update("likedBy.${Constants.currentUser.userId}", true)
+                        currentUserLiked =true
+                    }
+                    notifyItemChanged(position)
+                }
+                thumbDownIV.setOnClickListener {
+                    if (currentUserLiked != null) {
+                        if (!currentUserLiked!!) {
+                            commentRef.update("likedBy.${Constants.currentUser.userId}", FieldValue.delete())
+                            currentUserLiked = true
+                        } else {
+                            commentRef.update("likedBy.${Constants.currentUser.userId}", false)
+                                .addOnSuccessListener {
+                                    notifyItemChanged(position)
+                                    currentUserLiked =false
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.e("dislike", "Error adding dislike: ${e.message}", e)
+                                }
+                        }
+                    }else{
+                        commentRef.update("likedBy.${Constants.currentUser.userId}", false)
+                            .addOnSuccessListener {
+                                notifyItemChanged(position)
+                                currentUserLiked =false
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("dislike", "Error adding dislike: ${e.message}", e)
+                            }
+                    }
+                }
             }
-            notifyItemChanged(position)
         }
-
-        // Dislike Button
-        holder.binding.thumbDownIV.setOnClickListener {
-            if (model?.dislikedBy?.contains(Constants.currentUser.userId) == true) {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postId).collection("Comments")
-                    .document(model.commentId).update("dislikedBy", FieldValue.arrayRemove(Constants.currentUser.userId))
-                model.removeDislike(Constants.currentUser.userId)
-            } else {
-                FirebaseFirestore.getInstance().collection("Posts")
-                    .document(postId).collection("Comments")
-                    .document(model.commentId).update("dislikedBy", FieldValue.arrayUnion(Constants.currentUser.userId))
-                model.addDislike(Constants.currentUser.userId)
-            }
-            notifyItemChanged(position)
-        }
-
     }
 
-    inner class ViewHolder(val binding: ItemDesignCommentLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemDesignCommentLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

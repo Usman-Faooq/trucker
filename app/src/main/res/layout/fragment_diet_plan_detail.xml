@@ -1,115 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.DietPlanDetailFragment"
     android:background="@color/background_color">
 
-    <TextView
-        android:id="@+id/dietDay1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="3/4 cup cereal, 1 slice whole grain toast"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:textColor="@color/text_gray_color"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
 
-    <TextView
-        android:id="@+id/dietDay2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1 cup skim milk"
-        android:textColor="@color/text_gray_color"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dietPlanRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_diet_plan_details"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/dietDay3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1 hardboiled egg"
-        android:textColor="@color/text_gray_color"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
-
-    <TextView
-        android:id="@+id/dietDay4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1 hardboiled egg"
-        android:textColor="@color/text_gray_color"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
-
-    <TextView
-        android:id="@+id/dietDay5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1 hardboiled egg"
-        android:textColor="@color/text_gray_color"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
-
-    <TextView
-        android:id="@+id/dietDay6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1 hardboiled egg"
-        android:textColor="@color/text_gray_color"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
-
-    <TextView
-        android:id="@+id/dietDay7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/text_gray_color"
-        android:text="1 tbsp. Flaxseed, 2 tsp. margarine"
-        android:background="@drawable/rounded_edittext"
-        android:paddingVertical="@dimen/_12sdp"
-        android:textSize="@dimen/_11sdp"
-        android:elevation="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_15sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:fontFamily="@font/rubik_medium"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

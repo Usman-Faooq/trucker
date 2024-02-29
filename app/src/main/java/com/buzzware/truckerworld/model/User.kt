@@ -11,16 +11,17 @@ data class User(
     var phoneNumber: String = "",
     var userRole: String = "",
     var address: String = "",
+    var isOnline: Boolean = false,
     var lat: Double = 0.0,
     var lng: Double = 0.0,
-    var friends: MutableMap<String, String>? = null,
+    var friendsList: MutableMap<String, String>? = null,
     var groups: MutableMap<String, String>? = null
 ){
     fun addFriendRequest(friendUserId: String) {
-        if (friends == null) {
-            friends = mutableMapOf()
+        if (friendsList == null) {
+            friendsList = mutableMapOf()
         }
-        friends?.put(friendUserId, "requested")
+        friendsList?.put(friendUserId, "requested")
     }
 
 }

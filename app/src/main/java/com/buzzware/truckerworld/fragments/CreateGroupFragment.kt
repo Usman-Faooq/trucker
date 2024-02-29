@@ -14,34 +14,32 @@ import com.buzzware.truckerworld.AddMembersActivity
 import com.buzzware.truckerworld.R
 import com.buzzware.truckerworld.classes.Constants
 import com.buzzware.truckerworld.databinding.FragmentCreateGroupBinding
+import com.buzzware.truckerworld.model.GroupModel
+import com.buzzware.truckerworld.model.Products
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
 
 class CreateGroupFragment : Fragment() {
 
-    lateinit var binding : FragmentCreateGroupBinding
+    lateinit var binding: FragmentCreateGroupBinding
     private lateinit var fragmentContext: Context
-    lateinit var mDialog : ProgressDialog
+    lateinit var mDialog: ProgressDialog
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentCreateGroupBinding.inflate(layoutInflater)
 
         mDialog = ProgressDialog(fragmentContext)
         mDialog.setMessage("Please wait...")
         mDialog.setCancelable(false)
 
-        setView()
         setListener()
 
 
         return binding.root
     }
-
-    private fun setView() {
-
-    }
-
     private fun setListener() {
 
         binding.addMembersTV.setOnClickListener {
@@ -49,69 +47,95 @@ class CreateGroupFragment : Fragment() {
             startActivity(intent)
         }
 
-
         binding.saveTV.setOnClickListener {
+            if (!binding.groupNameET.text.isEmpty()) {
 
-            if (!binding.groupNameET.text.isEmpty()){
-                mDialog.show()
-                var groupId = UUID.randomUUID().toString()
 
-                val groupMap = hashMapOf(
-                    "groupId" to groupId,
-                    "groupName" to binding.groupNameET.text.toString(),
-                    "membersCount" to Constants.userMap.size,
-                    "adminId" to Constants.currentUser.userId,
-                    "members" to Constants.userMap,
-                )
+                val groupLimit = binding.groupLimitET.text.toString()
+                if (Constants.userMap.size > groupLimit.toInt()) {
+                    Toast.makeText(
+                        context,
+                        "You cannot add more then $groupLimit members in this group.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    mDialog.show()
+                    var groupId = UUID.randomUUID().toString()
 
-                FirebaseFirestore.getInstance().collection("Groups")
-                    .document(groupId).set(groupMap)
-                    .addOnSuccessListener {
+                    val groupMap = hashMapOf(
+                        "createdDate" to System.currentTimeMillis(),
+                        "groupCategory" to binding.categoryLV.text.toString(),
+                        "groupName" to binding.groupNameET.text.toString(),
+                        "groupLimit" to groupLimit.toLong(),
+                        "userId" to Constants.currentUser.userId,
+                        "members" to Constants.userMap,
+                    )
 
-                        val requestedUserIDs = Constants.userMap
-                            ?.filterValues { it == "Requested" }
-                            ?.keys
+                    FirebaseFirestore.getInstance().collection("PersonalRoutes")
+                        .document(groupId).set(groupMap)
+                        .addOnSuccessListener {
 
-                        if (requestedUserIDs != null) {
-                            val updateCounter = requestedUserIDs.size
-                            Log.d("LOGGER", "Size : $updateCounter")
-                            var completedUpdates = 0
-                            for (userID in requestedUserIDs) {
-                                Log.d("LOGGER", "Position Out Side : $completedUpdates")
-                                FirebaseFirestore.getInstance().collection("Users")
-                                    .document(userID).update("groups.${groupId}", "Requested")
-                                    .addOnSuccessListener {
-                                        completedUpdates++
-                                        if (completedUpdates == updateCounter) {
+                            val requestedUserIDs = Constants.userMap
+                                ?.filterValues { it == "requested" }
+                                ?.keys
+
+                            if (!requestedUserIDs.isNullOrEmpty()) {
+                                val updateCounter = requestedUserIDs.size
+                                Log.d("LOGGER", "requestedUserIDs Size : $updateCounter")
+                                var completedUpdates = 0
+                                for (userID in requestedUserIDs) {
+                                    Log.d("LOGGER", "Position Out Side : $completedUpdates")
+                                    FirebaseFirestore.getInstance().collection("Users")
+                                        .document(userID).update("groups.${groupId}", "requested")
+                                        .addOnSuccessListener {
+                                            completedUpdates++
+                                            if (completedUpdates == updateCounter) {
+                                                mDialog.dismiss()
+                                                Constants.userMap.clear()
+                                                Toast.makeText(
+                                                    fragmentContext,
+                                                    "Group Created",
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                                requireActivity().onBackPressed()
+                                            } else {
+                                                Log.d("LOGGER", "Else Part ${it.toString()}")
+                                            }
+                                        }.addOnFailureListener {
                                             mDialog.dismiss()
-                                            Constants.userMap.clear()
-                                            Toast.makeText(fragmentContext, "Group Created", Toast.LENGTH_SHORT).show()
-                                            requireActivity().onBackPressed()
-                                        }else{
-                                            Log.d("LOGGER", "Else Part ${it.toString()}")
+                                            Log.d("LOGGER", "E: ${it.message}")
+                                            Toast.makeText(
+                                                fragmentContext,
+                                                "E: ${it.message}",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         }
-                                    }.addOnFailureListener {
-                                        mDialog.dismiss()
-                                        Log.d("LOGGER", "E: ${it.message}")
-                                        Toast.makeText(fragmentContext, "E: ${it.message}", Toast.LENGTH_SHORT).show()
-                                    }
 
+                                }
+                            } else {
+                                mDialog.dismiss()
+                                Toast.makeText(
+                                    fragmentContext,
+                                    "Group Created without members",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                requireActivity().onBackPressed()
                             }
+
+                        }.addOnFailureListener {
+                            mDialog.dismiss()
+                            Log.d("LOGGER", "Error: ${it.message}")
+                            Toast.makeText(
+                                fragmentContext,
+                                "Error: ${it.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-
-                    }.addOnFailureListener {
-                        mDialog.dismiss()
-                        Log.d("LOGGER", "Error: ${it.message}")
-                        Toast.makeText(fragmentContext, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
-                    }
-
-
+                }
             }
-
         }
-
     }
-    
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentContext = context
@@ -119,8 +143,7 @@ class CreateGroupFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
-        binding.timePickerET.setText(Constants.userMap.size.toString())
+        Log.d("GroupMembers", "onResume:${Constants.userMap.keys} ")
 
     }
 

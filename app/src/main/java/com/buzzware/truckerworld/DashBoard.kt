@@ -1,7 +1,11 @@
 package com.buzzware.truckerworld
 
+import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -9,19 +13,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.buzzware.truckerworld.databinding.ActivityDashBoardBinding
 import com.buzzware.truckerworld.fragments.*
+import com.buzzware.truckerworld.model.DietPlanModel
+import com.google.firebase.auth.FirebaseAuth
 
 
-class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListener, DietPlanFragment.OnDataChangeListener {
+class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListener,
+    DietPlanFragment.OnDataChangeListener {
 
-    lateinit var binding : ActivityDashBoardBinding
+    lateinit var binding: ActivityDashBoardBinding
+    private lateinit var dialog: ProgressDialog
 
-    var mainName : String = "Home"
+    var mainName: String = "Home"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        dialog = ProgressDialog(this@DashBoard)
         setView()
         setListener()
         setDrawerListener()
@@ -61,6 +70,11 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
             loadOnlineMemberFragment()
         }
 
+        binding.friendsLayout.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            loadFriendsFragment()
+        }
+
         binding.requestLayout.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
             loadRequestFragment()
@@ -73,7 +87,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
 
         binding.guidelinesLayout.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
-            loadFragment(PrivacyPolicyFragment())
+            loadFragment(GuidelinesFragment())
             binding.appbar.searchIV.visibility = View.INVISIBLE
             binding.appbar.notificationIV.visibility = View.INVISIBLE
             binding.appbar.menuIV.setTag(R.drawable.menu_icon)
@@ -92,17 +106,35 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
         }
 
         binding.logoutLayout.setOnClickListener {
-            finish()
+            FirebaseAuth.getInstance().signOut()
+            showDialog("Logout...")
+            Handler().postDelayed({
+                val intent = Intent(this@DashBoard, SignInActivity::class.java)
+                startActivity(intent)
+                finish()
+                dismissDialog()
+            }, 1000)
         }
 
     }
 
+    private fun showDialog(msg: String) {
+        dialog.apply {
+            setMessage(msg)
+            setCancelable(false)
+            show()
+        }
+    }
+
+    private fun dismissDialog() {
+        dialog.dismiss()
+    }
 
     private fun setView() {
         binding.appbar.notificationIV.setImageResource(R.drawable.notification_icon)
         binding.appbar.notificationIV.setTag(R.drawable.notification_icon)
 
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener{
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
 
                 val mainContentView = binding.mainContent
@@ -146,20 +178,20 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
         }
 
         binding.appbar.menuIV.setOnClickListener {
-            if (binding.appbar.menuIV.getTag() == R.drawable.back_icon){
+            if (binding.appbar.menuIV.getTag() == R.drawable.back_icon) {
                 binding.appbar.menuIV.setTag(R.drawable.menu_icon)
                 binding.appbar.menuIV.setImageResource(R.drawable.menu_icon)
                 binding.appbar.searchIV.visibility = View.VISIBLE
                 binding.appbar.notificationIV.visibility = View.VISIBLE
                 binding.appbar.titleTV.setText(mainName)
                 onBackPressed()
-            } else if (binding.appbar.menuIV.getTag() == R.drawable.back_icon4){
+            } else if (binding.appbar.menuIV.getTag() == R.drawable.back_icon4) {
                 binding.appbar.menuIV.setTag(R.drawable.menu_icon)
                 binding.appbar.menuIV.setImageResource(R.drawable.menu_icon)
                 binding.appbar.notificationIV.visibility = View.INVISIBLE
                 binding.appbar.titleTV.setText(mainName)
                 onBackPressed()
-            }else if(binding.appbar.menuIV.getTag() == R.drawable.back_icon2) {
+            } else if (binding.appbar.menuIV.getTag() == R.drawable.back_icon2) {
                 binding.appbar.menuIV.setTag(R.drawable.menu_icon)
                 binding.appbar.menuIV.setImageResource(R.drawable.menu_icon)
                 binding.appbar.notificationIV.visibility = View.VISIBLE
@@ -167,7 +199,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
                 binding.appbar.notificationIV.setTag(R.drawable.add_icon)
                 binding.appbar.titleTV.setText(mainName)
                 onBackPressed()
-            }else if(binding.appbar.menuIV.getTag() == R.drawable.back_icon3) {
+            } else if (binding.appbar.menuIV.getTag() == R.drawable.back_icon3) {
                 binding.appbar.menuIV.setTag(R.drawable.back_icon2)
                 binding.appbar.menuIV.setImageResource(R.drawable.back_icon2)
                 binding.appbar.notificationIV.visibility = View.VISIBLE
@@ -175,7 +207,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
                 binding.appbar.notificationIV.setTag(R.drawable.add_user_icon)
                 binding.appbar.titleTV.setText(mainName)
                 onBackPressed()
-            }else {
+            } else {
                 if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                 } else {
@@ -185,7 +217,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
         }
 
         binding.appbar.notificationIV.setOnClickListener {
-            if (binding.appbar.notificationIV.tag == R.drawable.add_icon){
+            if (binding.appbar.notificationIV.tag == R.drawable.add_icon) {
                 binding.appbar.menuIV.tag = R.drawable.back_icon2
                 binding.appbar.menuIV.setImageResource(R.drawable.back_icon2)
                 binding.appbar.notificationIV.visibility = View.INVISIBLE
@@ -195,7 +227,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
                 transaction.addToBackStack(null);
                 transaction.commit()
 
-            }else if (binding.appbar.notificationIV.tag == R.drawable.notification_icon){
+            } else if (binding.appbar.notificationIV.tag == R.drawable.notification_icon) {
                 binding.appbar.menuIV.tag = R.drawable.back_icon
                 binding.appbar.menuIV.setImageResource(R.drawable.back_icon)
                 binding.appbar.searchIV.visibility = View.INVISIBLE
@@ -207,7 +239,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
                 transaction.commit()
 
                 //Toast.makeText(this, "Notification Clicked...", Toast.LENGTH_SHORT).show()
-            }else if (binding.appbar.notificationIV.tag == R.drawable.add_user_icon){
+            } else if (binding.appbar.notificationIV.tag == R.drawable.add_user_icon) {
 
                 binding.appbar.menuIV.tag = R.drawable.back_icon3
                 binding.appbar.menuIV.setImageResource(R.drawable.back_icon3)
@@ -217,7 +249,7 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
                 transaction.replace(R.id.container, AddGroupMemberFragment())
                 transaction.addToBackStack(null);
                 transaction.commit()
-            }else{
+            } else {
                 binding.appbar.menuIV.setTag(R.drawable.back_icon)
                 binding.appbar.menuIV.setImageResource(R.drawable.back_icon)
                 binding.appbar.notificationIV.visibility = View.INVISIBLE
@@ -333,7 +365,6 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
         binding.addTab.setImageResource(R.drawable.nav_add_button_unselected)
         binding.messageTab.setImageResource(R.drawable.nav_message_unselected)
         binding.profileTab.setImageResource(R.drawable.nav_profile_selected)
-
     }
 
     private fun loadPersonalRouteFragment() {
@@ -385,6 +416,21 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
 
     }
 
+    private fun loadFriendsFragment() {
+        loadFragment(FriendsListFragment())
+        binding.appbar.searchIV.visibility = View.INVISIBLE
+        binding.appbar.notificationIV.visibility = View.INVISIBLE
+        binding.appbar.menuIV.setTag(R.drawable.menu_icon)
+        binding.appbar.menuIV.setImageResource(R.drawable.menu_icon)
+        binding.appbar.titleTV.setText("Friends List")
+        binding.homeTab.setImageResource(R.drawable.nav_home_unselected)
+        binding.scheduleTab.setImageResource(R.drawable.nav_schedule_unselected)
+        binding.addTab.setImageResource(R.drawable.nav_add_button_unselected)
+        binding.messageTab.setImageResource(R.drawable.nav_message_unselected)
+        binding.profileTab.setImageResource(R.drawable.nav_profile_unselected)
+
+    }
+
     private fun loadRequestFragment() {
         loadFragment(RequestsFragment())
         binding.appbar.searchIV.visibility = View.INVISIBLE
@@ -408,25 +454,29 @@ class DashBoard : AppCompatActivity(), PersonalRouteFragment.OnDataChangeListene
         transaction.commit()
     }
 
-    override fun onDataChanged(data: String) {
+    override fun onDataChanged(data: String,groupId:String) {
         binding.appbar.menuIV.setTag(R.drawable.back_icon2)
         binding.appbar.menuIV.setImageResource(R.drawable.back_icon2)
         binding.appbar.notificationIV.setImageResource(R.drawable.add_user_icon)
         binding.appbar.notificationIV.setTag(R.drawable.add_user_icon)
         binding.appbar.titleTV.setText(data)
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, GroupDetailFragment())
+        val fragment = GroupDetailFragment()
+        val bundle = Bundle()
+        bundle.putString("groupID",groupId)
+        fragment.arguments = bundle
+        transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null);
         transaction.commit()
     }
 
-    override fun onItemDataChanged(data: String, type: String) {
+    override fun onItemDataChanged(data: String, type: String,model :DietPlanModel) {
         binding.appbar.menuIV.setTag(R.drawable.back_icon4)
         binding.appbar.menuIV.setImageResource(R.drawable.back_icon4)
         binding.appbar.notificationIV.visibility = View.INVISIBLE
         binding.appbar.titleTV.setText(data)
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, DietPlanDetailFragment(type))
+        transaction.replace(R.id.container, DietPlanDetailFragment(type, dietPlan = model))
         transaction.addToBackStack(null);
         transaction.commit()
     }

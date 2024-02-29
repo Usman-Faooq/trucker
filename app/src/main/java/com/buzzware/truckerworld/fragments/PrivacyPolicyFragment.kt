@@ -18,6 +18,7 @@ class PrivacyPolicyFragment : Fragment() {
     ): View? {
         binding = FragmentPrivacyPolicyBinding.inflate(layoutInflater)
 
+        binding.pdfViewer.fromAsset("trucker_world_privacy_policy_2024.pdf").load()
         return binding.root
     }
 

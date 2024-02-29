@@ -34,7 +34,9 @@ class OnlineMemberAdapter(val context: Context, val list: ArrayList<User?>?) :
             .error(R.drawable.profile_dummy)
             .placeholder(R.drawable.profile_dummy)
             .into(holder.binding.profileIV)
+
         holder.binding.userNameTV.setText("${model?.firstName} ${model?.lastName}")
+        holder.binding.contentTV.setText(model!!.address)
 
 
         holder.binding.root.setOnClickListener {

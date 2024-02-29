@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:gravity="bottom"
     android:background="@color/background_color"
+    android:gravity="bottom"
+    android:orientation="vertical"
     tools:context=".fragments.CreateScheduleFragment">
 
 
     <EditText
+        android:id="@+id/sceduleNameTV"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_39sdp"
-        android:background="@drawable/rounded_edittext"
-        android:hint="Name"
         android:layout_marginHorizontal="@dimen/_15sdp"
-        android:textColorHint="@color/gray_color"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:textSize="@dimen/_9sdp"
         android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/rounded_edittext"
         android:elevation="@dimen/_3sdp"
-        android:fontFamily="@font/rubik_regular"/>
+        android:fontFamily="@font/rubik_regular"
+        android:hint="Name"
+        android:inputType="textCapWords"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:textColorHint="@color/gray_color"
+        android:textSize="@dimen/_9sdp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/timePickerLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_39sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:elevation="@dimen/_3sdp"
-        android:id="@+id/timePickerLayout"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_edittext"
-        android:layout_marginHorizontal="@dimen/_15sdp">
+        android:elevation="@dimen/_3sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
 
         <EditText
             android:id="@+id/timePickerET"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/rubik_regular"
-            android:hint="Time"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Time"
             android:textColorHint="@color/gray_color"
             android:textSize="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,41 +67,41 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_39sdp"
-        android:elevation="@dimen/_3sdp"
         android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_edittext"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:elevation="@dimen/_3sdp">
+
         <AutoCompleteTextView
+            android:id="@+id/selectSportPicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Sports"
-            android:id="@+id/selectSportPicker"
-            android:textColor="@color/gray_color"
-            android:textSize="@dimen/_9sdp"
             android:background="@android:color/transparent"
-            android:inputType="none">
-        </AutoCompleteTextView>
+            android:inputType="none"
+            android:text="Categories"
+            android:textColor="@color/gray_color"
+            android:textSize="@dimen/_9sdp"></AutoCompleteTextView>
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dateLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_39sdp"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:elevation="@dimen/_3sdp"
-        android:id="@+id/dateLayout"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_edittext"
-        android:layout_marginHorizontal="@dimen/_15sdp">
+        android:elevation="@dimen/_3sdp"
+        android:paddingHorizontal="@dimen/_10sdp">
 
         <EditText
             android:id="@+id/datePickerET"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/rubik_regular"
-            android:hint="Date"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:fontFamily="@font/rubik_regular"
+            android:hint="Date"
             android:textColorHint="@color/gray_color"
             android:textSize="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -123,18 +125,18 @@
         android:id="@+id/saveTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="@color/dark_green_color"
-        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:elevation="@dimen/_1sdp"
+        android:fontFamily="@font/rubik_medium"
+        android:gravity="center"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_13sdp"
-        android:textSize="@dimen/_11sdp"
         android:text="SAVE"
-        android:layout_marginBottom="@dimen/_30sdp"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:elevation="@dimen/_1sdp"
-        android:fontFamily="@font/rubik_medium"/>
+        android:textSize="@dimen/_11sdp" />
 
 </LinearLayout>

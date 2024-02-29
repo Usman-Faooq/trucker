@@ -8,15 +8,27 @@ import com.bumptech.glide.Glide
 import com.buzzware.truckerworld.R
 import com.buzzware.truckerworld.classes.Constants
 import com.buzzware.truckerworld.databinding.ItemDesignFriendRequestLayoutBinding
+import com.buzzware.truckerworld.model.User
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.ArrayList
 
-class FriendRequestAdapter(val context: Context, val list: ArrayList<com.buzzware.truckerworld.model.User?>?, private val listener: OnItemClickListener) :
+class FriendRequestAdapter(
+    val context: Context,
+    val list: ArrayList<User?>?,
+    private val listener: OnItemClickListener,
+    private val onClick:(position: Int, response:String) -> Unit
+) :
     RecyclerView.Adapter<FriendRequestAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemDesignFriendRequestLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemDesignFriendRequestLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -32,14 +44,15 @@ class FriendRequestAdapter(val context: Context, val list: ArrayList<com.buzzwar
             .placeholder(R.drawable.profile_dummy)
             .into(holder.binding.profileIV)
         holder.binding.userNameTV.setText("${model?.firstName} ${model?.lastName}")
+        holder.binding.contentTV.text = model!!.address
 
 
         holder.binding.AcceptTV.setOnClickListener {
-            listener.onDateClick(position, "Accept")
+            onClick.invoke(position,"Accept")
         }
 
         holder.binding.ignoreTV.setOnClickListener {
-            listener.onDateClick(position, "Ignore")
+            onClick.invoke(position,"Ignore")
         }
 
 
@@ -49,5 +62,6 @@ class FriendRequestAdapter(val context: Context, val list: ArrayList<com.buzzwar
         fun onDateClick(position: Int, check: String)
     }
 
-    inner class ViewHolder(val binding: ItemDesignFriendRequestLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(val binding: ItemDesignFriendRequestLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

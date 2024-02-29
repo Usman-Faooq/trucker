@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.buzzware.truckerworld.ChatActivity
@@ -42,9 +43,11 @@ class AddGroupMemberAdapter(val context: Context, val list: ArrayList<User?>?) :
                 if (Constants.userMap.containsKey(userId)) {
                     // User is already added, remove them
                     Constants.userMap.remove(userId)
+                    Toast.makeText(context, "Member Removed", Toast.LENGTH_SHORT).show()
                 } else {
                     // User is not added, add them
-                    Constants.userMap[userId] = "Requested"
+                    Constants.userMap[userId] = "requested"
+                    Toast.makeText(context, "Member Added", Toast.LENGTH_SHORT).show()
                 }
             }
 
